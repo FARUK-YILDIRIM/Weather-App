@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
 
     @IBAction func addCity(_ sender: Any) {
         performSegue(withIdentifier: "showCityListPanel", sender: nil)
