@@ -6,17 +6,128 @@
 //
 
 import UIKit
+import Kingfisher
 
 class WeatherViewController: UIViewController {
-
+    
+    // MARK: - Properties
+    
+    var weatherService = WeatherService.shared
+    var forecastHourlyWeather = [ForecastCondition]()
+    
+    @IBOutlet weak var conditionImage: UIImageView!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var conditionLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var localtimeLabel: UILabel!
+    
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var visibilityLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    
+    @IBOutlet var tableView: UITableView!
+    
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchWeather(byCity: "Ankara")
+        tableView.dataSource = self
+    }
+    
+    // MARK: - API
+    
+    private func fetchWeather(byCity city: String) {
+        weatherService.fetchWeather(byCity: city) { (result) in
+            self.handleResult(result)
+        }
+    }
+    
+    private func handleResult(_ result: Result<WeatherModel, Error>) {
+        switch result {
+        case .success(let model):
+            updateView(with: model)
+        case .failure(let error):
+            handleError(error)
+        }
+    }
+    
+    private func handleError(_ error: Error) {
+        temperatureLabel.text = "Oops!"
+    }
+    
+    // MARK: - Helper Functions
+    
+    private func updateView(with model: WeatherModel) {
+        conditionImage.kf.setImage(with: URL(string: String("https:" + model.current.condition.icon)))
+        temperatureLabel.text = String(model.current.temp_c).appending("°C")
+        conditionLabel.text = model.current.condition.text
+        cityNameLabel.text = model.location.name
+        localtimeLabel.text = String("\(self.showToday()), \(stringParseForTime(str: model.location.localtime))")
+        humidityLabel.text = String(model.current.humidity)
+        visibilityLabel.text = String(model.current.vis_km).appending(" KM")
+        pressureLabel.text = String(model.current.pressure_in).appending(" in")
+        
+        DispatchQueue.main.async {
+            for i in 1 ..< model.forecast.forecastday[0].hour.count {
+                self.forecastHourlyWeather.append(ForecastCondition(
+                    time: model.forecast.forecastday[0].hour[i].time,
+                    text: model.forecast.forecastday[0].hour[i].condition.text,
+                    icon: model.forecast.forecastday[0].hour[i].condition.icon
+                    
+                    )
+                )
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func stringParseForTime(str: String) -> String {
+        let components = str.components(separatedBy: " ")
+        return components[1]
+    }
+    
+    private func showToday() -> String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let dayInWeek = dateFormatter.string(from: date)
+        return dayInWeek
+    }
+    
     @IBAction func addCity(_ sender: Any) {
         performSegue(withIdentifier: "showCityListPanel", sender: nil)
     }
     
-   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
 }
 
+// MARK: - UITableViewDataSource
+
+extension WeatherViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return forecastHourlyWeather.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WeatherCell
+        
+        if forecastHourlyWeather.count > 0 && indexPath.row < forecastHourlyWeather.count {
+            cell.forecastImage.kf.setImage(with: URL(string: String("https:" + forecastHourlyWeather[indexPath.row].icon)))
+            cell.forecastTime.text = stringParseForTime(str: forecastHourlyWeather[indexPath.row].time)
+            cell.forecastCondition.text = forecastHourlyWeather[indexPath.row].text
+        }
+        return cell
+    }
+}
+
+// MARK: - UITableViewCell
+
+class WeatherCell: UITableViewCell {
+    
+@IBOutlet weak var forecastImage: UIImageView!
+@IBOutlet weak var forecastTime: UILabel!
+@IBOutlet weak var forecastCondition: UILabel!
+    
+}

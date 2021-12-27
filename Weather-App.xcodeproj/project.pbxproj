@@ -15,6 +15,11 @@
 		033186EF277630A400E9244C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 033186ED277630A400E9244C /* LaunchScreen.storyboard */; };
 		033186F92776532000E9244C /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033186F82776532000E9244C /* CityListViewController.swift */; };
 		033186FB2776570C00E9244C /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033186FA2776570C00E9244C /* AddCityViewController.swift */; };
+		03620D45277A1B3B003AF124 /* ForecastCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03620D44277A1B3B003AF124 /* ForecastCondition.swift */; };
+		037E81C5277712C200229A4A /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E81C4277712C200229A4A /* WeatherService.swift */; };
+		037E81C7277713E200229A4A /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E81C6277713E200229A4A /* WeatherModel.swift */; };
+		037E81CA2777292B00229A4A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 037E81C92777292B00229A4A /* Alamofire */; };
+		037E81D227778F5300229A4A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 037E81D127778F5300229A4A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,9 @@
 		033186F0277630A400E9244C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		033186F82776532000E9244C /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
 		033186FA2776570C00E9244C /* AddCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
+		03620D44277A1B3B003AF124 /* ForecastCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCondition.swift; sourceTree = "<group>"; };
+		037E81C4277712C200229A4A /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		037E81C6277713E200229A4A /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037E81D227778F5300229A4A /* Kingfisher in Frameworks */,
+				037E81CA2777292B00229A4A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +83,8 @@
 		037E81BF27770F2500229A4A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				037E81C6277713E200229A4A /* WeatherModel.swift */,
+				03620D44277A1B3B003AF124 /* ForecastCondition.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -109,6 +121,7 @@
 		037E81C327770F5C00229A4A /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				037E81C4277712C200229A4A /* WeatherService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -129,6 +142,10 @@
 			dependencies = (
 			);
 			name = "Weather-App";
+			packageProductDependencies = (
+				037E81C92777292B00229A4A /* Alamofire */,
+				037E81D127778F5300229A4A /* Kingfisher */,
+			);
 			productName = "Weather-App";
 			productReference = 033186DF277630A200E9244C /* Weather-App.app */;
 			productType = "com.apple.product-type.application";
@@ -157,6 +174,10 @@
 				Base,
 			);
 			mainGroup = 033186D6277630A200E9244C;
+			packageReferences = (
+				037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				037E81D027778F5300229A4A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 033186E0277630A200E9244C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -184,10 +205,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03620D45277A1B3B003AF124 /* ForecastCondition.swift in Sources */,
 				033186FB2776570C00E9244C /* AddCityViewController.swift in Sources */,
 				033186E7277630A200E9244C /* WeatherViewController.swift in Sources */,
 				033186E3277630A200E9244C /* AppDelegate.swift in Sources */,
+				037E81C7277713E200229A4A /* WeatherModel.swift in Sources */,
 				033186E5277630A200E9244C /* SceneDelegate.swift in Sources */,
+				037E81C5277712C200229A4A /* WeatherService.swift in Sources */,
 				033186F92776532000E9244C /* CityListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +434,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		037E81D027778F5300229A4A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		037E81C92777292B00229A4A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		037E81D127778F5300229A4A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 037E81D027778F5300229A4A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 033186D7277630A200E9244C /* Project object */;
 }
