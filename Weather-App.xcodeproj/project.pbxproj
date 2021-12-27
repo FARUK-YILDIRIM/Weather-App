@@ -16,6 +16,7 @@
 		033186F92776532000E9244C /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033186F82776532000E9244C /* CityListViewController.swift */; };
 		033186FB2776570C00E9244C /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033186FA2776570C00E9244C /* AddCityViewController.swift */; };
 		03620D45277A1B3B003AF124 /* ForecastCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03620D44277A1B3B003AF124 /* ForecastCondition.swift */; };
+		03620D4A277A29B1003AF124 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 03620D49277A29B1003AF124 /* SkeletonView */; };
 		037E81C5277712C200229A4A /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E81C4277712C200229A4A /* WeatherService.swift */; };
 		037E81C7277713E200229A4A /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E81C6277713E200229A4A /* WeatherModel.swift */; };
 		037E81CA2777292B00229A4A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 037E81C92777292B00229A4A /* Alamofire */; };
@@ -44,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				037E81D227778F5300229A4A /* Kingfisher in Frameworks */,
+				03620D4A277A29B1003AF124 /* SkeletonView in Frameworks */,
 				037E81CA2777292B00229A4A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +147,7 @@
 			packageProductDependencies = (
 				037E81C92777292B00229A4A /* Alamofire */,
 				037E81D127778F5300229A4A /* Kingfisher */,
+				03620D49277A29B1003AF124 /* SkeletonView */,
 			);
 			productName = "Weather-App";
 			productReference = 033186DF277630A200E9244C /* Weather-App.app */;
@@ -177,6 +180,7 @@
 			packageReferences = (
 				037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				037E81D027778F5300229A4A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				03620D48277A29B1003AF124 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 033186E0277630A200E9244C /* Products */;
 			projectDirPath = "";
@@ -436,6 +440,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		03620D48277A29B1003AF124 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -455,6 +467,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		03620D49277A29B1003AF124 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03620D48277A29B1003AF124 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		037E81C92777292B00229A4A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 037E81C82777292B00229A4A /* XCRemoteSwiftPackageReference "Alamofire" */;

@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class WeatherViewController: UIViewController {
     
@@ -31,13 +32,25 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchWeather(byCity: "Ankara")
+        fetchWeather(byCity: "Manila")
         tableView.dataSource = self
+        
+        conditionImage.isSkeletonable = true
+        temperatureLabel.isSkeletonable = true
+        cityNameLabel.isSkeletonable = true
+        localtimeLabel.isSkeletonable = true
+        humidityLabel.isSkeletonable = true
+        visibilityLabel.isSkeletonable = true
+        pressureLabel.isSkeletonable = true
+        tableView.isSkeletonable = true
+        
+        showSkeletonAnimation()
     }
     
     // MARK: - API
     
     private func fetchWeather(byCity city: String) {
+        showSkeletonAnimation()
         weatherService.fetchWeather(byCity: city) { (result) in
             self.handleResult(result)
         }
@@ -59,6 +72,7 @@ class WeatherViewController: UIViewController {
     // MARK: - Helper Functions
     
     private func updateView(with model: WeatherModel) {
+        hideSkeletonAnimation()
         conditionImage.kf.setImage(with: URL(string: String("https:" + model.current.condition.icon)))
         temperatureLabel.text = String(model.current.temp_c).appending("°C")
         conditionLabel.text = model.current.condition.text
@@ -94,6 +108,29 @@ class WeatherViewController: UIViewController {
         dateFormatter.dateFormat = "EEEE"
         let dayInWeek = dateFormatter.string(from: date)
         return dayInWeek
+    }
+    
+    private func showSkeletonAnimation(){
+        conditionImage.showAnimatedGradientSkeleton()
+        temperatureLabel.showAnimatedGradientSkeleton()
+        cityNameLabel.showAnimatedGradientSkeleton()
+        localtimeLabel.showAnimatedGradientSkeleton()
+        humidityLabel.showAnimatedGradientSkeleton()
+        visibilityLabel.showAnimatedGradientSkeleton()
+        pressureLabel.showAnimatedGradientSkeleton()
+        tableView.showAnimatedGradientSkeleton()
+    }
+    
+    private func hideSkeletonAnimation(){
+        conditionImage.hideSkeleton()
+        conditionImage.hideSkeleton()
+        temperatureLabel.hideSkeleton()
+        cityNameLabel.hideSkeleton()
+        localtimeLabel.hideSkeleton()
+        humidityLabel.hideSkeleton()
+        visibilityLabel.hideSkeleton()
+        pressureLabel.hideSkeleton()
+        tableView.hideSkeleton()
     }
     
     @IBAction func addCity(_ sender: Any) {
