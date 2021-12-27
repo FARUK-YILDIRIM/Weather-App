@@ -32,7 +32,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchWeather(byCity: "Manila")
+        fetchWeather(byCity: "Ankara")
         tableView.dataSource = self
         
         conditionImage.isSkeletonable = true
