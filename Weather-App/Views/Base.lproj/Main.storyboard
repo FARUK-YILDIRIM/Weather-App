@@ -220,6 +220,7 @@
                         <viewLayoutGuide key="safeArea" id="ccS-Rs-yQU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="vD1-8e-oyl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPp-m7-ByH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -234,9 +235,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ytV-LP-jYf">
-                                <rect key="frame" x="20" y="101" width="374" height="573"/>
+                                <rect key="frame" x="20" y="172" width="374" height="502"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="M0e-Wi-oms">
+                                        <rect key="frame" x="0.0" y="44.5" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M0e-Wi-oms" id="gDh-U5-bv3">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRk-Uw-BgU">
                                 <rect key="frame" x="20" y="730" width="374" height="54"/>
@@ -253,12 +264,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="eje-tD-IMT"/>
                     <connections>
+                        <outlet property="tableView" destination="ytV-LP-jYf" id="LjI-EC-43x"/>
                         <segue destination="5ad-Ym-fUh" kind="presentation" identifier="showAddCity" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="QTn-L9-NkX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpS-Ry-3iT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959" y="139"/>
+            <point key="canvasLocation" x="1957.9710144927537" y="138.61607142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bk4-hY-ag4">
@@ -278,10 +290,10 @@
             </objects>
             <point key="canvasLocation" x="228" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Add City View Controller-->
         <scene sceneID="8Td-l3-4CO">
             <objects>
-                <viewController id="Odg-Rx-H03" sceneMemberID="viewController">
+                <viewController id="Odg-Rx-H03" customClass="AddCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apu-0Z-zuX">
                         <rect key="frame" x="0.0" y="0.0" width="315" height="282"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -302,6 +314,9 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="addCityButton:" destination="Odg-Rx-H03" eventType="touchUpInside" id="lPP-QL-GY2"/>
+                                </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="dup-Fx-Jui">
                                 <rect key="frame" x="39" y="180" width="232" height="20"/>
@@ -349,6 +364,9 @@
                             <constraint firstItem="4lf-y0-1cz" firstAttribute="top" secondItem="4hs-8O-yZg" secondAttribute="bottom" constant="18" id="yuG-dM-0jl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cityTextField" destination="4lf-y0-1cz" id="nMu-Kj-VGS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpl-4d-ZWd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

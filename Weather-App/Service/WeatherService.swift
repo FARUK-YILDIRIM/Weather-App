@@ -24,12 +24,12 @@ final class WeatherService {
         AF.request(urlString)
             .validate()
             .responseDecodable(of: WeatherModel.self, queue: .main, decoder: JSONDecoder()) { (response) in
-                print(response)
+//                print(response)
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
                 case .failure(let error):
-                    print(error)
+//                    print(error)
                     completion(.failure(error))
             }
         }
