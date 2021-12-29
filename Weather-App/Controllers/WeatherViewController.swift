@@ -9,10 +9,9 @@ import UIKit
 import Kingfisher
 import SkeletonView
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, UpdateCityDelegate {
     
     // MARK: - Properties
-    
     var weatherService = WeatherService.shared
     var forecastHourlyWeather = [ForecastCondition]()
     
@@ -47,16 +46,22 @@ class WeatherViewController: UIViewController {
         showSkeletonAnimation()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCityListPanel" {
+            let vc = segue.destination as! CityListViewController
+            vc.cityDelegate = self
+        }
+    }
     // MARK: - API
     
-    private func fetchWeather(byCity city: String) {
+     func fetchWeather(byCity city: String) {
         showSkeletonAnimation()
         weatherService.fetchWeather(byCity: city) { (result) in
             self.handleResult(result)
         }
     }
     
-    private func handleResult(_ result: Result<WeatherModel, Error>) {
+     private func handleResult(_ result: Result<WeatherModel, Error>) {
         switch result {
         case .success(let model):
             updateView(with: model)
@@ -65,9 +70,11 @@ class WeatherViewController: UIViewController {
         }
     }
     
-    private func handleError(_ error: Error) {
+     private func handleError(_ error: Error) {
         temperatureLabel.text = "Oops!"
-    }
+         tableView.isHidden = true
+         hideSkeletonAnimation()
+     }
     
     // MARK: - Helper Functions
     

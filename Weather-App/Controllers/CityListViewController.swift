@@ -7,17 +7,24 @@
 
 import UIKit
 
+protocol UpdateCityDelegate: AnyObject {
+    func fetchWeather(byCity city: String)
+   
+}
+
 class CityListViewController: UIViewController {
     
     // MARK: - Properties
 
-    @IBOutlet weak var tableView: UITableView!
+    weak var cityDelegate: UpdateCityDelegate?
     
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         tableView.dataSource = self
     }
     
@@ -25,7 +32,6 @@ class CityListViewController: UIViewController {
         super.viewWillAppear(animated)
         cityListArray()
         tableView.reloadData()
-        print("cityListArray  \(cityListArray())" )
     }
     
     // MARK: - Helper Functions
@@ -36,10 +42,31 @@ class CityListViewController: UIViewController {
         return cityListArray
     }
     
+    func returnCityFromTableView(_ index: Int) -> String {
+        let userDefaults = UserDefaults.standard
+        let cityListArray = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
+        return cityListArray[index]
+    }
+    
+    func deleteCity(_ delete: Int) -> Void {
+        let userDefaults = UserDefaults.standard
+        var array = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
+        array.remove(at: delete)
+        userDefaults.set(array, forKey: "cityList")
+        
+        tableView.reloadData()
+        
+        let alert = UIAlertController(title: "City Deleted", message: "", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func addCity(_ sender: Any) {
         performSegue(withIdentifier: "showAddCity", sender: nil)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension CityListViewController: UITableViewDataSource {
     
@@ -53,4 +80,23 @@ extension CityListViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension CityListViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+         if editingStyle == .delete {
+             deleteCity(indexPath.row)
+         }
+     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.cityDelegate != nil  {
+            cityDelegate?.fetchWeather(byCity: returnCityFromTableView(indexPath.row))
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
 }
