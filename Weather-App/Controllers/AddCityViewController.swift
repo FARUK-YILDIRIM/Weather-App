@@ -12,28 +12,37 @@ class AddCityViewController: UIViewController {
 
     // MARK: - Properties
     
-    @IBOutlet weak var cityTextField: UITextField!
-    
     let userDefaults = UserDefaults.standard
-  
+    
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(white: 0.3, alpha: 0.9)
     }
 
     // MARK: - Helper Functions
     
     @IBAction func addCityButton(_ sender: Any) {
-        var array = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
-        array.append(cityTextField.text!)
-        userDefaults.set(array, forKey: "cityList")
-
+        guard let newCity = cityTextField.text, !newCity.isEmpty else {
+            showError()
+            return
+        }
+        
+        var cityListarray = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
+        cityListarray.append(cityTextField.text!)
+        userDefaults.set(cityListarray, forKey: "cityList")
         self.dismiss(animated: true, completion: nil)
-
     }
     
-
+    func showError(){
+        errorLabel.isHidden = false
+        errorLabel.text = "Please enter a city name."
+    }
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

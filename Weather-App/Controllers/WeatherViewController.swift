@@ -71,7 +71,14 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
     }
     
      private func handleError(_ error: Error) {
-        temperatureLabel.text = "Oops!"
+         conditionImage.image = UIImage(named: "imSad")
+         cityNameLabel.text = "City Not Found"
+         localtimeLabel.text = "The system is not responding."
+         conditionLabel.text = ""
+         temperatureLabel.text = "Oops!"
+         humidityLabel.text = "Error"
+         visibilityLabel.text = "Error"
+         pressureLabel.text = "Error"
          tableView.isHidden = true
          hideSkeletonAnimation()
      }
@@ -80,6 +87,7 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
     
     private func updateView(with model: WeatherModel) {
         hideSkeletonAnimation()
+        tableView.isHidden = false
         conditionImage.kf.setImage(with: URL(string: String("https:" + model.current.condition.icon)))
         temperatureLabel.text = String(model.current.temp_c).appending("°C")
         conditionLabel.text = model.current.condition.text
