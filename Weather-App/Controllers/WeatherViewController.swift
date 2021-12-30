@@ -13,6 +13,7 @@ import CoreLocation
 class WeatherViewController: UIViewController, UpdateCityDelegate {
     
     // MARK: - Properties
+    
     var weatherService = WeatherService.shared
     var forecastHourlyWeather = [ForecastCondition]()
     
@@ -59,9 +60,10 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
             vc.cityDelegate = self
         }
     }
+    
     // MARK: - API
     
-     func fetchWeather(byCity city: String) {
+    func fetchWeather(byCity city: String) {
         showSkeletonAnimation()
         weatherService.fetchWeather(byCity: city) { (result) in
             self.handleResult(result)
@@ -80,7 +82,7 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         }
     }
     
-     private func handleResult(_ result: Result<WeatherModel, Error>) {
+    private func handleResult(_ result: Result<WeatherModel, Error>) {
         switch result {
         case .success(let model):
             updateView(with: model)
@@ -89,18 +91,18 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         }
     }
     
-     private func handleError(_ error: Error) {
-         conditionImage.image = UIImage(named: "imSad")
-         cityNameLabel.text = "City Not Found"
-         localtimeLabel.text = "The system is not responding."
-         conditionLabel.text = ""
-         temperatureLabel.text = "Oops!"
-         humidityLabel.text = "Error"
-         visibilityLabel.text = "Error"
-         pressureLabel.text = "Error"
-         tableView.isHidden = true
-         hideSkeletonAnimation()
-     }
+    private func handleError(_ error: Error) {
+        conditionImage.image = UIImage(named: "imSad")
+        cityNameLabel.text = "City Not Found"
+        localtimeLabel.text = "The system is not responding."
+        conditionLabel.text = ""
+        temperatureLabel.text = "Oops!"
+        humidityLabel.text = "Error"
+        visibilityLabel.text = "Error"
+        pressureLabel.text = "Error"
+        tableView.isHidden = true
+        hideSkeletonAnimation()
+    }
     
     // MARK: - Helper Functions
     
@@ -123,7 +125,7 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
                     text: model.forecast.forecastday[0].hour[i].condition.text,
                     icon: model.forecast.forecastday[0].hour[i].condition.icon
                     
-                    )
+                )
                 )
             }
             
@@ -144,7 +146,7 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         return dayInWeek
     }
     
-    private func showSkeletonAnimation(){
+    private func showSkeletonAnimation() {
         conditionImage.showAnimatedGradientSkeleton()
         temperatureLabel.showAnimatedGradientSkeleton()
         cityNameLabel.showAnimatedGradientSkeleton()
@@ -155,7 +157,7 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         tableView.showAnimatedGradientSkeleton()
     }
     
-    private func hideSkeletonAnimation(){
+    private func hideSkeletonAnimation() {
         conditionImage.hideSkeleton()
         conditionImage.hideSkeleton()
         temperatureLabel.hideSkeleton()
@@ -238,8 +240,8 @@ extension WeatherViewController: CLLocationManagerDelegate {
 
 class WeatherCell: UITableViewCell {
     
-@IBOutlet weak var forecastImage: UIImageView!
-@IBOutlet weak var forecastTime: UILabel!
-@IBOutlet weak var forecastCondition: UILabel!
+    @IBOutlet weak var forecastImage: UIImageView!
+    @IBOutlet weak var forecastTime: UILabel!
+    @IBOutlet weak var forecastCondition: UILabel!
     
 }

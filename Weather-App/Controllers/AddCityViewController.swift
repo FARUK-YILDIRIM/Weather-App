@@ -9,7 +9,7 @@ import UIKit
 
 
 class AddCityViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     let userDefaults = UserDefaults.standard
@@ -22,7 +22,7 @@ class AddCityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     // MARK: - Helper Functions
     
     @IBAction func addCityButton(_ sender: Any) {
@@ -37,7 +37,7 @@ class AddCityViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func showError(){
+    func showError() {
         errorLabel.isHidden = false
         errorLabel.text = "Please enter a city name."
     }

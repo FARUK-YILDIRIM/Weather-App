@@ -24,6 +24,6 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is required to show your local weather.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>your location is required to show your local weather.</string>
+	<string>Your location is required to show your local weather.</string>
 </dict>
 </plist>

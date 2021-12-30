@@ -12,7 +12,7 @@ struct WeatherModel: Codable {
     var location: Location
     var current: Current
     var forecast: Forecast
-
+    
     // MARK: - Location
     
     struct Location: Codable {
@@ -36,7 +36,6 @@ struct WeatherModel: Codable {
             let text: String
             let icon: String
         }
-        
     }
     
     // MARK: - Forecast
@@ -44,7 +43,7 @@ struct WeatherModel: Codable {
     struct Forecast: Codable {
         let forecastday: [Forecastday]
     }
-
+    
     struct Forecastday: Codable {
         let hour: [Hour]
         let date: String
@@ -59,7 +58,6 @@ struct WeatherModel: Codable {
             let icon: String
         }
     }
-
 }
 
 

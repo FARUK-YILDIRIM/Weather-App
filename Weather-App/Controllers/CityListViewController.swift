@@ -9,14 +9,15 @@ import UIKit
 
 protocol UpdateCityDelegate: AnyObject {
     func fetchWeather(byCity city: String)
-   
+    
 }
 
 class CityListViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     weak var cityDelegate: UpdateCityDelegate?
+    let userDefaults = UserDefaults.standard
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -37,22 +38,19 @@ class CityListViewController: UIViewController {
     // MARK: - Helper Functions
     
     func cityListArray() -> [String]{
-        let userDefaults = UserDefaults.standard
         let cityListArray = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
         return cityListArray
     }
     
     func returnCityFromTableView(_ index: Int) -> String {
-        let userDefaults = UserDefaults.standard
-        let cityListArray = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
+        let cityListArray = cityListArray()
         return cityListArray[index]
     }
     
     func deleteCity(_ delete: Int) -> Void {
-        let userDefaults = UserDefaults.standard
-        var array = userDefaults.object(forKey: "cityList") as? [String] ?? [String]()
-        array.remove(at: delete)
-        userDefaults.set(array, forKey: "cityList")
+        var cityListArray = cityListArray()
+        cityListArray.remove(at: delete)
+        userDefaults.set(cityListArray, forKey: "cityList")
         
         tableView.reloadData()
         
@@ -77,20 +75,19 @@ extension CityListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = cityListArray()[indexPath.row]
-        
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
 
-extension CityListViewController: UITableViewDelegate{
+extension CityListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-         if editingStyle == .delete {
-             deleteCity(indexPath.row)
-         }
-     }
+        if editingStyle == .delete {
+            deleteCity(indexPath.row)
+        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.cityDelegate != nil  {
@@ -98,5 +95,4 @@ extension CityListViewController: UITableViewDelegate{
             self.navigationController?.popViewController(animated: true)
         }
     }
-
 }

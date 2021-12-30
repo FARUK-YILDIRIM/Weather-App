@@ -26,7 +26,7 @@ final class WeatherService {
         handleRequest(urlString: urlString, completion: completion)
     }
     
-    //SearchModel
+    // MARK: - SearchModel Handle Request
     private func handleRequest(urlString: String, completion: @escaping (Result<[SearchModel], Error>) -> Void) {
         AF.request(urlString)
             .validate()
@@ -41,7 +41,7 @@ final class WeatherService {
         }
     }
     
-    //WeatherModel
+    // MARK: - WeatherModel Handle Request
     private func handleRequest(urlString: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
         AF.request(urlString)
             .validate()
@@ -54,6 +54,5 @@ final class WeatherService {
             }
         }
     }
-    
 }
 
