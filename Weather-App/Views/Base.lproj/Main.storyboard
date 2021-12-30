@@ -180,6 +180,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a8N-TK-rsw">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="map" catalog="system" style="plain" id="KMF-j7-oia">
+                            <connections>
+                                <action selector="findLocation:" destination="BYZ-38-t0r" id="8Cn-ap-VPw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="3nY-56-P4e">
                             <connections>
                                 <action selector="addCity:" destination="BYZ-38-t0r" id="Pvk-sy-eHw"/>
@@ -397,6 +402,7 @@
     <resources>
         <image name="CityPicture" width="3233" height="4849"/>
         <image name="imAtmosphere" width="512" height="512"/>
+        <image name="map" catalog="system" width="128" height="110"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

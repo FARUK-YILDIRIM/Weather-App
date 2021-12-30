@@ -8,12 +8,19 @@
 import UIKit
 import Kingfisher
 import SkeletonView
+import CoreLocation
 
 class WeatherViewController: UIViewController, UpdateCityDelegate {
     
     // MARK: - Properties
     var weatherService = WeatherService.shared
     var forecastHourlyWeather = [ForecastCondition]()
+    
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        return manager
+    }()
     
     @IBOutlet weak var conditionImage: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -58,6 +65,18 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         showSkeletonAnimation()
         weatherService.fetchWeather(byCity: city) { (result) in
             self.handleResult(result)
+        }
+    }
+    
+    func fetchWeather(lat: Double, lon: Double) {
+        showSkeletonAnimation()
+        weatherService.fetchWeather(lat: lat, lon: lon) { (result) in
+            switch result {
+            case .success(let data):
+                self.fetchWeather(byCity: data[0].name)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
@@ -152,6 +171,17 @@ class WeatherViewController: UIViewController, UpdateCityDelegate {
         performSegue(withIdentifier: "showCityListPanel", sender: nil)
     }
     
+    @IBAction func findLocation(_ sender: Any) {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.requestLocation()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.requestLocation()
+        default:
+            promptForLocationPermission()
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -172,6 +202,36 @@ extension WeatherViewController: UITableViewDataSource {
         }
         return cell
     }
+}
+
+//MARK: - CLLocationManagerDelegate
+
+extension WeatherViewController: CLLocationManagerDelegate {
+    
+    private func promptForLocationPermission() {
+        let alertController = UIAlertController(title: "Requires Location Permission", message: "Would you like to enable location permission in Settings?", preferredStyle: .alert)
+        let enableAction = UIAlertAction(title: "Go to Settings", style: .default) { _ in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(enableAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else  { return }
+        manager.stopUpdatingLocation()
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        fetchWeather(lat: lat, lon: lon)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        handleError(error)
+    }
+    
 }
 
 // MARK: - UITableViewCell

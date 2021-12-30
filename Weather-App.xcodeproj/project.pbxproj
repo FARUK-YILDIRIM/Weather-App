@@ -21,6 +21,7 @@
 		037E81C7277713E200229A4A /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E81C6277713E200229A4A /* WeatherModel.swift */; };
 		037E81CA2777292B00229A4A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 037E81C92777292B00229A4A /* Alamofire */; };
 		037E81D227778F5300229A4A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 037E81D127778F5300229A4A /* Kingfisher */; };
+		03800932277CEDEB009BF962 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03800931277CEDEB009BF962 /* SearchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		03620D44277A1B3B003AF124 /* ForecastCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCondition.swift; sourceTree = "<group>"; };
 		037E81C4277712C200229A4A /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		037E81C6277713E200229A4A /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		03800931277CEDEB009BF962 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				037E81C6277713E200229A4A /* WeatherModel.swift */,
 				03620D44277A1B3B003AF124 /* ForecastCondition.swift */,
+				03800931277CEDEB009BF962 /* SearchModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				03620D45277A1B3B003AF124 /* ForecastCondition.swift in Sources */,
 				033186FB2776570C00E9244C /* AddCityViewController.swift in Sources */,
 				033186E7277630A200E9244C /* WeatherViewController.swift in Sources */,
+				03800932277CEDEB009BF962 /* SearchModel.swift in Sources */,
 				033186E3277630A200E9244C /* AppDelegate.swift in Sources */,
 				037E81C7277713E200229A4A /* WeatherModel.swift in Sources */,
 				033186E5277630A200E9244C /* SceneDelegate.swift in Sources */,
